@@ -10,20 +10,27 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+    //creates a list of all of the fish objects of the flock
     public FlockAgent agentPrefab;
     List<FlockAgent> agents = new List<FlockAgent>();
     public FlockBehavior behavior;
 
+    // Number of fish objests min, max, and starting count
     [Range(10, 500)]
     public int startingCount = 250;
+    // how tightly they are spawned
     const float AgentDensity = 0.08f;
 
+    // The speed multiplier
     [Range(1f, 100f)]
     public float driveFactor = 10f;
+    // The max speed that the fish objects can move
     [Range(1f, 100f)]
     public float maxSpeed = 5f;
+    // The closets distance that the fish objects can be in the space of one another
     [Range(1f, 10f)]
     public float neighborRadius = 1.5f;
+    // the distance the fish objects avoid 'obsticals' 
     [Range(0f, 1f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
@@ -39,6 +46,7 @@ public class Flock : MonoBehaviour
         squareNeighborRadius = neighborRadius * neighborRadius;
         squareAvoidanceRadius = squareNeighborRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
 
+        // crates a total number of 'starting count' fish objects 
         for (int i = 0; i < startingCount; i++)
         {
             FlockAgent newAgent = Instantiate(
@@ -56,12 +64,13 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //
+        // possibly edit
         float _angle;
-        float minAngle = -45f;
-        float maxAngle = 0f;
+        float minAngle = -45f; // original -45f
+        float maxAngle = 0f; // original 0f
         //
 
+        // calculates movement for each fish object
         foreach (FlockAgent agent in agents)
         {
             // transform.eulerAngles.x;
@@ -76,6 +85,7 @@ public class Flock : MonoBehaviour
             }
 
             //
+            // adjust the y position
             move.y += Time.deltaTime;
             transform.position = move * Time.deltaTime;
 
@@ -94,9 +104,11 @@ public class Flock : MonoBehaviour
        
     }
 
+    // creates all informaiton for collision objects for the flock agens (fish objects)
     List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         List<Transform> context = new List<Transform>();
+        // setting up the overlap collison model
         Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neighborRadius);
         foreach (Collider c in contextColliders)
         {
