@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// hads to have some form of collider, generally a mesh collieder
 [RequireComponent(typeof(Collider))]
 public class FlockAgent : MonoBehaviour
 {

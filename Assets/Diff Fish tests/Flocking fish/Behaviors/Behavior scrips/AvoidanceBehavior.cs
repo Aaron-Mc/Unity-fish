@@ -22,6 +22,7 @@ public class AvoidanceBehavior : FilteredFlockBehavior
         Vector3 avoidanceMove = Vector3.zero;
         int nAvoid = 0;
         List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+        // avoids members of its own group
         foreach (Transform item in filteredContext)
         {
             if (Vector3.SqrMagnitude(item.position - agent.transform.position) < flock.SquareAvoidanceRadius)
@@ -31,8 +32,7 @@ public class AvoidanceBehavior : FilteredFlockBehavior
 
                 if(mask == (mask | (1 << item.gameObject.layer)))
                 {
-                    
-                    // Destroy(item.gameObject);
+                    // would do things to 'obstical' layer objects
                 }
                 
                 
