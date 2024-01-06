@@ -16,16 +16,16 @@ public class Flock : MonoBehaviour
     public FlockBehavior behavior;
 
     // Number of fish objests min, max, and starting count
-    [Range(10, 500)]
+    [Range(2, 500)]
     public int startingCount = 250;
     // how tightly they are spawned
     const float AgentDensity = 0.08f;
 
     // The speed multiplier
-    [Range(1f, 100f)]
+    [Range(0.1f, 100f)]
     public float driveFactor = 10f;
     // The max speed that the fish objects can move
-    [Range(1f, 100f)]
+    [Range(0.1f, 100f)]
     public float maxSpeed = 5f;
     // The closets distance that the fish objects can be in the space of one another
     [Range(1f, 10f)]

@@ -32,6 +32,7 @@ public class flock : MonoBehaviour
             turning = false;
         }
 
+        // look here?
         if(turning)
         {
             Vector3 direction = Vector3.zero - transform.position;

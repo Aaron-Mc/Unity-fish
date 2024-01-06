@@ -333,11 +333,11 @@ PrefabInstance:
       objectReference: {fileID: -3326651470366784484, guid: 47523c1d259628f47b91dfaa2a1b7c6b, type: 3}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: driveFactor
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: startingCount
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: neighborRadius
