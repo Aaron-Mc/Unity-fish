@@ -16,7 +16,7 @@ public class Flock : MonoBehaviour
     public FlockBehavior behavior;
 
     // Number of fish objests min, max, and starting count
-    [Range(2, 500)]
+    [Range(1, 500)]
     public int startingCount = 250;
     // how tightly they are spawned
     const float AgentDensity = 0.08f;
