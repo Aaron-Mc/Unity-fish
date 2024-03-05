@@ -307,8 +307,8 @@ GameObject:
   - component: {fileID: 1652931433702975957}
   - component: {fileID: 448316362366432775}
   - component: {fileID: 3549146682641780135}
-  - component: {fileID: 6399683656947612787}
   - component: {fileID: 3443972715142372997}
+  - component: {fileID: 714443138342754233}
   m_Layer: 0
   m_Name: FishAnimated1 1
   m_TagString: Untagged
@@ -332,7 +332,7 @@ Transform:
   - {fileID: 3837317995211173720}
   - {fileID: 8942845444957969235}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.224, y: 0, z: 0}
 --- !u!95 &1652931433702975957
 Animator:
@@ -404,20 +404,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6399683656947612787
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3368229746789169248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6790154614584880641, guid: 0022cde13aab3df469ec943732576554, type: 3}
 --- !u!114 &3443972715142372997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +416,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191480cca1f51f0459d9099097ab4f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &714443138342754233
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368229746789169248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.40411705
+  m_Height: 2.4997144
+  m_Direction: 1
+  m_Center: {x: 0.012873139, y: 0.03616246, z: 0.10408046}
 --- !u!1 &3545993775679657882
 GameObject:
   m_ObjectHideFlags: 0
