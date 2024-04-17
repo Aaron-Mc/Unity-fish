@@ -200,6 +200,7 @@ namespace NuitrackSDK.Avatar
         Vector3 GetJointLocalPos(Vector3 jointPosition)
         {
             Vector3 jointPos = jointPosition - basePivotOffset;
+            // original 0, 180, 0
             Vector3 localPos = IsTransformSpace ? Quaternion.Euler(0, 180, 0) * jointPos : jointPos;
 
             return SpaceTransform.TransformPoint(localPos); ;

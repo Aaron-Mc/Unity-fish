@@ -34,7 +34,8 @@ namespace NuitrackSDK.Tutorials.AvatarAnimation
         void ProcessSkeleton(UserData.SkeletonData skeleton)
         {
             //Calculate the model position: take the root position and invert movement along the Z axis
-            Vector3 rootPos = Quaternion.Euler(0f, 180f, 0f) * skeleton.GetJoint(rootJoint).Position;
+            // originally 0f, 180f, 0f
+            Vector3 rootPos = Quaternion.Euler(0f, 0f, 0f) * skeleton.GetJoint(rootJoint).Position;
             transform.position = rootPos;
 
             foreach (var riggedJoint in jointsRigged)

@@ -29,15 +29,13 @@ public class AvoidanceBehavior1 : FilteredFlockBehavior1
                 nAvoid++;
                 avoidanceMove += (Vector3)(agent.transform.position - item.position);
 
-                if(mask == (mask | (1 << item.gameObject.layer)))
-                {
+                //if(mask == (mask | (1 << item.gameObject.layer)))
+                //{
                     //Vector3 targetDirection = item.position - agent.position;
 
 
                     // Destroy(item.gameObject);
-                }
-                
-                
+                //}
             }
 
             
