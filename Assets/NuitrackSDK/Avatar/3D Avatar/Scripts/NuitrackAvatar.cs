@@ -192,7 +192,12 @@ namespace NuitrackSDK.Avatar
         {
             if(ControllerUser != null && ControllerUser.Skeleton != null)
                 Process(ControllerUser);
-
+            else
+            {
+                transform.position = new Vector3(-0.144f, 0.7824962f, -3.43896f);
+                //transform.position
+            }
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (vrMode)
                 spawnedHead.position = headTransform.position;
         }
