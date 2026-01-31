@@ -34,6 +34,19 @@ public class Flock : MonoBehaviour
     [Range(0f, 1f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
+    // How strongly agents are pushed away from the flock center when inside the boundary.
+    [Range(0f, 10f)]
+    public float centerRepulsion = 0f;
+    // Maximum radius from flock center within which repulsion applies.
+    [Range(0.1f, 100f)]
+    public float repulsionRadius = 15f;
+    // How strongly agents are pulled back when they drift outside the radius.
+    [Range(0f, 10f)]
+    public float centerAttraction = 1.5f;
+    // Adds a tangential steering component so agents naturally circle around the boundary.
+    [Range(0f, 5f)]
+    public float orbitStrength = 0.5f;
+
     float squareMaxSpeed;
     float squareNeighborRadius;
     float squareAvoidanceRadius;
@@ -64,19 +77,48 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // possibly edit
-        float _angle;
-        float minAngle = -45f; // original -45f
-        float maxAngle = 0f; // original 0f
-        //
-
         // calculates movement for each fish object
         foreach (FlockAgent agent in agents)
         {
-            // transform.eulerAngles.x;
             List<Transform> context = GetNearbyObjects(agent);
 
             Vector3 move = behavior.CalculateMove(agent, context, this);
+
+            // Boundary steering: inside -> gentle repulsion; outside -> gentle attraction.
+            // Adds tangential steering to avoid sticking along a single axis.
+            if (repulsionRadius > 0f)
+            {
+                Vector3 centerToAgent = agent.transform.position - transform.position;
+                float dist = centerToAgent.magnitude;
+                if (dist > 0.0001f)
+                {
+                    Vector3 radialDir = centerToAgent / dist; // normalized
+
+                    if (centerRepulsion > 0f && dist < repulsionRadius)
+                    {
+                        // Linear falloff inside radius
+                        float falloff = 1f - (dist / repulsionRadius);
+                        move += radialDir * (centerRepulsion * falloff);
+                    }
+                    else if (centerAttraction > 0f && dist > repulsionRadius)
+                    {
+                        // Pull back when outside, with falloff that grows with distance but clamps
+                        float falloff = Mathf.Clamp01((dist - repulsionRadius) / repulsionRadius);
+                        move += (-radialDir) * (centerAttraction * falloff);
+                    }
+
+                    // Tangential component to encourage circling around the boundary
+                    if (orbitStrength > 0f)
+                    {
+                        // Use global up as axis to get a horizontal tangent (assuming Y-up environment)
+                        Vector3 tangent = Vector3.Cross(Vector3.up, radialDir);
+                        // Randomize orbit direction per agent to avoid uniform rotation
+                        int hash = agent.name.GetHashCode();
+                        float sign = (hash & 1) == 0 ? 1f : -1f;
+                        move += tangent.normalized * (orbitStrength * sign);
+                    }
+                }
+            }
             
             move *= driveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
@@ -84,24 +126,9 @@ public class Flock : MonoBehaviour
                 move = move.normalized * maxSpeed;
             }
 
-            //
-            // adjust the y position
-            move.y += Time.deltaTime;
-            transform.position = move * Time.deltaTime;
-
-            float newAngle = Mathf.Atan2(move.y, move.x);
-
-            newAngle = Mathf.Clamp(newAngle * Mathf.Rad2Deg, minAngle, maxAngle);
-
-            _angle = Mathf.Lerp(move.z , newAngle, Time.deltaTime);
-
-            transform.localEulerAngles = new Vector3(0, 0, _angle);
-            //
-
+            // Let the agent handle movement; do not move or rotate the flock transform
             agent.Move(move);
         }
-
-       
     }
 
     // creates all informaiton for collision objects for the flock agens (fish objects)
