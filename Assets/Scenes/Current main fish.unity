@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1001 &48791972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -275,6 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0.5
+  debugLogIntervalSeconds: 0.5
 --- !u!1 &112644073
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +868,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!4 &445949895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5330449889610536292, guid: ff304d40008242c4c8ba7ab895a733b3, type: 3}
@@ -879,6 +888,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1 &509594370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,6 +1925,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1001 &917111511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2066,6 +2081,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1 &921004877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2771,6 +2789,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1 &1301676402
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,6 +2942,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!4 &1328640714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5694461505904374234, guid: ff304d40008242c4c8ba7ab895a733b3, type: 3}
@@ -8381,6 +8405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b00056a36fd47c4e99baa326940c119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredJoints: 01000000080000000e00000012000000130000001600000017000000
+  minConfidence: 0
+  debugLogIntervalSeconds: 0.5
 --- !u!1 &1807785521
 GameObject:
   m_ObjectHideFlags: 0
@@ -8814,7 +8841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCurrentUserTracker: 0
   userID: 1
-  jointConfidence: 0.202
+  jointConfidence: 0.1
   waist: {fileID: 724020150}
   torso: {fileID: 724020149}
   collar: {fileID: 0}
@@ -8869,9 +8896,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d7aa9806037a14897cfa19109dd441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatar: {fileID: 0}
   requiredJoints: 01000000140000000700000008000000180000000d0000000e000000110000001200000013000000150000001600000017000000
   minConfidence: 0.1
   debugLogIntervalSeconds: 0.5
+  _nextLogTime: 0
+  _loggedOnce: 0
 --- !u!4 &2012441217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -9150135906833104988, guid: ff304d40008242c4c8ba7ab895a733b3, type: 3}
