@@ -13,6 +13,13 @@ public class FlockAgent : MonoBehaviour
     Collider agentCollider;
     public Collider AgentCollider { get { return agentCollider; } }
 
+    [Header("Steering")]
+    [Tooltip("How quickly the agent rotates to face its movement direction (degrees/sec).")]
+    [SerializeField] float turnSpeed = 720f;
+
+    [Tooltip("If the velocity magnitude is below this threshold, rotation will not be updated (prevents flicker).")]
+    [SerializeField] float minVelocityToRotate = 0.01f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,8 +36,19 @@ public class FlockAgent : MonoBehaviour
 
     public void Move(Vector3 velocity)
     {
-        transform.up = velocity;
-        transform.position += (Vector3)velocity * Time.deltaTime;
+        // If the velocity is too small, don't update rotation this frame.
+        // Snapping orientation to very small vectors can cause rapid flip/flop ("flicker").
+        if (velocity.sqrMagnitude >= (minVelocityToRotate * minVelocityToRotate))
+        {
+            // Preserve your existing convention that the fish's "up" points along its movement direction.
+            Vector3 desiredUp = velocity.normalized;
+
+            // Smoothly rotate to avoid jitter when direction changes quickly.
+            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, desiredUp) * transform.rotation;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        }
+
+        transform.position += velocity * Time.deltaTime;
     }
 
     // Randomizes the playback start time for continuous animations to avoid synchronized motion.

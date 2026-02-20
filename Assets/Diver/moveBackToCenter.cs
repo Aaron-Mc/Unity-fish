@@ -26,6 +26,26 @@ public class moveBackToCenter : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float minConfidence = 0f;
 
+    [Header("Tracking threshold")]
+    [Tooltip("If true, ALL required joints must meet the confidence threshold for the avatar to be considered tracked.")]
+    [SerializeField]
+    private bool requireAllRequiredJoints = true;
+
+    [Header("Grace seconds by tracked joint count")]
+    [Tooltip("Grace (seconds) before hiding when only N required joints are currently tracked. Keys are tracked-counts (0..requiredJoints.Length-1).")]
+    [SerializeField]
+    private TrackedCountGraceEntry[] graceByTrackedCount = new TrackedCountGraceEntry[]
+    {
+        // Example for 7 required joints: 6->1, 5->0.3, 4->0.15, everything else ->0
+        new TrackedCountGraceEntry { trackedCount = 6, graceSeconds = 1f },
+        new TrackedCountGraceEntry { trackedCount = 5, graceSeconds = 0.3f },
+        new TrackedCountGraceEntry { trackedCount = 4, graceSeconds = 0.15f },
+        new TrackedCountGraceEntry { trackedCount = 3, graceSeconds = 0f },
+        new TrackedCountGraceEntry { trackedCount = 2, graceSeconds = 0f },
+        new TrackedCountGraceEntry { trackedCount = 1, graceSeconds = 0f },
+        new TrackedCountGraceEntry { trackedCount = 0, graceSeconds = 0f },
+    };
+
     [Header("Hide behavior")]
     [Tooltip("Disable the NuitrackAvatar component when required joints are not tracked. This prevents the avatar script from overriding transform changes.")]
     [SerializeField]
@@ -45,6 +65,16 @@ public class moveBackToCenter : MonoBehaviour
     private Vector3 _lastLocalPosition;
     private Renderer[] _renderers;
 
+    private float _requirementsUnmetSince = -1f;
+
+    [Serializable]
+    private struct TrackedCountGraceEntry
+    {
+        [Min(0)] public int trackedCount;
+        [Min(0f)] public float graceSeconds;
+    }
+
+    private Dictionary<int, float> _graceByTrackedCount;
 
     void Start()
     {
@@ -59,9 +89,17 @@ public class moveBackToCenter : MonoBehaviour
         _renderers = disableRenderersWhenUntracked ? avatar.GetComponentsInChildren<Renderer>(true) : null;
         _lastLocalPosition = avatar.transform.localPosition;
 
+        RebuildGraceLookup();
+
         // Force an immediate first log so we see output even if the object would disable this frame
         _nextLogTime = Time.time; // no delay for the first print
         _loggedOnce = false;
+    }
+
+    void OnValidate()
+    {
+        // Keep runtime lookup consistent in-editor.
+        RebuildGraceLookup();
     }
 
     void Update()
@@ -70,23 +108,31 @@ public class moveBackToCenter : MonoBehaviour
             return;
 
         int satisfiedCount;
-        bool tracked = AreRequiredJointsTracked(out satisfiedCount);
+        int total;
+        bool meetsRequirements = AreTrackingRequirementsMet(out satisfiedCount, out total);
 
-        if (!tracked)
+        // When requirements are not met, grace depends on how many are currently tracked.
+        float graceSeconds = meetsRequirements ? 0f : GetGraceSecondsForTrackedCount(satisfiedCount, total);
+
+        if (!meetsRequirements)
         {
-            HideAvatar();
+            if (_requirementsUnmetSince < 0f)
+                _requirementsUnmetSince = Time.time;
+
+            if (graceSeconds <= 0f || (Time.time - _requirementsUnmetSince) >= graceSeconds)
+                HideAvatar();
         }
         else
         {
+            _requirementsUnmetSince = -1f;
             ShowAvatar();
         }
 
         // Debug: how many joints meet the confidence threshold
         if (Time.time >= _nextLogTime || !_loggedOnce)
         {
-            int total = requiredJoints != null ? requiredJoints.Length : 0;
             float threshold = minConfidence > 0f ? minConfidence : avatar.JointConfidence;
-            Debug.Log($"moveBackToCenter: {satisfiedCount}/{total} required joints >= confidence {threshold:F2} (tracked: {tracked})");
+            Debug.Log($"moveBackToCenter: {satisfiedCount}/{total} required joints >= confidence {threshold:F2} (requireAll: {requireAllRequiredJoints}, grace: {graceSeconds:F2}s, tracked: {meetsRequirements})");
             _nextLogTime = Time.time + debugLogIntervalSeconds;
             _loggedOnce = true;
         }
@@ -134,7 +180,7 @@ public class moveBackToCenter : MonoBehaviour
         avatar.transform.localPosition = _lastLocalPosition;
     }
 
-    private bool AreRequiredJointsTracked(out int satisfiedCount)
+    private bool AreTrackingRequirementsMet(out int satisfiedCount, out int total)
     {
         satisfiedCount = 0;
 
@@ -143,22 +189,62 @@ public class moveBackToCenter : MonoBehaviour
 
         // If there are no required joints specified, consider as tracked
         if (requiredJoints == null || requiredJoints.Length == 0)
+        {
+            total = 0;
             return true;
+        }
+
+        total = requiredJoints.Length;
 
         for (int i = 0; i < requiredJoints.Length; i++)
         {
             var joint = avatar.GetJoint(requiredJoints[i]);
             if (joint != null && joint.Confidence >= threshold)
-            {
                 satisfiedCount++;
-            }
-            else
-            {
-                // Early exit: missing one of required joints
-                return false;
-            }
         }
 
-        return true;
+        if (requireAllRequiredJoints)
+            return satisfiedCount >= total;
+
+        // Backward compatible: if not requiring all, then require at least 1.
+        return satisfiedCount > 0;
+    }
+
+    private void RebuildGraceLookup()
+    {
+        if (_graceByTrackedCount == null)
+            _graceByTrackedCount = new Dictionary<int, float>();
+        else
+            _graceByTrackedCount.Clear();
+
+        if (graceByTrackedCount == null)
+            return;
+
+        for (int i = 0; i < graceByTrackedCount.Length; i++)
+        {
+            int key = graceByTrackedCount[i].trackedCount;
+            float value = graceByTrackedCount[i].graceSeconds;
+
+            if (key < 0)
+                continue;
+
+            // last entry wins
+            _graceByTrackedCount[key] = Mathf.Max(0f, value);
+        }
+    }
+
+    private float GetGraceSecondsForTrackedCount(int trackedCount, int totalRequired)
+    {
+        if (totalRequired <= 0)
+            return 0f;
+
+        // Expected keys: 0..totalRequired-1; but be tolerant.
+        int clamped = Mathf.Clamp(trackedCount, 0, totalRequired - 1);
+
+        if (_graceByTrackedCount != null && _graceByTrackedCount.TryGetValue(clamped, out float grace))
+            return grace;
+
+        // Default: everything else 0
+        return 0f;
     }
 }
