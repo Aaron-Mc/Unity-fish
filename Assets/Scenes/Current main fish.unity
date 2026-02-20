@@ -152,8 +152,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -199,11 +213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: centerRepulsion
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: repulsionRadius
-      value: 12
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: centerAttraction
@@ -284,8 +298,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0.5
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.075
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -878,8 +906,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -902,8 +944,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -1943,8 +1999,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -2103,8 +2173,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -2253,6 +2337,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
+      propertyPath: orbitStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: startingCount
       value: 5
       objectReference: {fileID: 0}
@@ -2262,7 +2350,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: centerRepulsion
-      value: 0.6
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
+      propertyPath: repulsionRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
+      propertyPath: centerAttraction
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6687005609353606838, guid: 9bb7fd02cc0008447a0d700a3d2b5de7, type: 3}
       propertyPath: avoidanceRadiusMultiplier
@@ -2815,8 +2911,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -2972,8 +3082,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5
@@ -8439,8 +8563,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredJoints: 01000000080000000e00000012000000130000001600000017000000
   minConfidence: 0
-  minRequiredJointsSatisfied: 5
-  untrackedGraceSeconds: 0.15
+  requireAllRequiredJoints: 1
+  graceByTrackedCount:
+  - trackedCount: 6
+    graceSeconds: 1
+  - trackedCount: 5
+    graceSeconds: 0.3
+  - trackedCount: 4
+    graceSeconds: 0.15
+  - trackedCount: 3
+    graceSeconds: 0
+  - trackedCount: 2
+    graceSeconds: 0
+  - trackedCount: 1
+    graceSeconds: 0
+  - trackedCount: 0
+    graceSeconds: 0
   disableAvatarComponentWhenUntracked: 1
   disableRenderersWhenUntracked: 1
   debugLogIntervalSeconds: 0.5

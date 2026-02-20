@@ -47,10 +47,20 @@ public class Flock : MonoBehaviour
     [Range(0f, 5f)]
     public float orbitStrength = 0.5f;
 
+    [Header("Smoothing")]
+    [Tooltip("Smooths commanded velocity to reduce twitching from rapidly changing steering vectors.")]
+    public bool smoothVelocity = true;
+
+    [Tooltip("Higher values follow steering more closely; lower values are smoother.")]
+    [Range(0.1f, 30f)]
+    public float velocityResponsiveness = 8f;
+
     float squareMaxSpeed;
     float squareNeighborRadius;
     float squareAvoidanceRadius;
     public float SquareAvoidanceRadius { get { return squareAvoidanceRadius; } }
+
+    readonly Dictionary<FlockAgent, Vector3> _smoothedVelocities = new Dictionary<FlockAgent, Vector3>();
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +81,7 @@ public class Flock : MonoBehaviour
             newAgent.name = "Agent " + i;
             newAgent.Initialize(this);
             agents.Add(newAgent);
+            _smoothedVelocities[newAgent] = Vector3.zero;
         }
     }
 
@@ -119,11 +130,20 @@ public class Flock : MonoBehaviour
                     }
                 }
             }
-            
+
             move *= driveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
             {
                 move = move.normalized * maxSpeed;
+            }
+
+            // Smooth the commanded velocity to reduce twitching/jitter.
+            if (smoothVelocity)
+            {
+                _smoothedVelocities.TryGetValue(agent, out Vector3 current);
+                float t = 1f - Mathf.Exp(-velocityResponsiveness * Time.deltaTime);
+                move = Vector3.Lerp(current, move, t);
+                _smoothedVelocities[agent] = move;
             }
 
             // Let the agent handle movement; do not move or rotate the flock transform
